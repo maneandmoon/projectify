@@ -48,10 +48,12 @@ Interests Page
 3.    Display most upvoted projects
 
 ## React Tree Diagram
-![ReactTreeP4](https://github.com/user-attachments/assets/c6be15c4-c7f4-49b8-85f7-896fce192b6d)
+![ReactTreeUpdatedP4](https://github.com/user-attachments/assets/19a679c0-58fb-4edd-883d-b9b88c29602c)
+
 
 ## Schema
-![SchemaP4](https://github.com/user-attachments/assets/3ed575d3-8e1a-4ccc-9544-c3a5c8734879)
+![SchemaUpdatedP4](https://github.com/user-attachments/assets/34dd71d7-b723-46d0-a291-6898a4dfb584)
+
 
 
 ## API Routes
