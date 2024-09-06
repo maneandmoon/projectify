@@ -55,26 +55,44 @@ Interests Page
 
 
 ## API Routes
-User Routes
+
+**User Routes**
+
     GET /users: Retrieve a list of all users.
+    
     POST /users: Create a new user.
+    
     GET /users/<id>: Retrieve a specific user by ID.
+    
     PATCH /users/<id>: Partially update a specific user by ID.
+    
     DELETE /users/<id>: Delete a specific user by ID.
 
-Project Routes
+**Project Routes**
+    
     GET /projects: Retrieve a list of all projects.
+
     POST /projects: Create a new project.
+    
     GET /projects/<id>: Retrieve a specific project by ID.
+    
     PATCH /projects/<id>: Partially update a specific project by ID.
+    
     DELETE /projects/<id>: Delete a specific project by ID.
 
-Interest Routes
+**Interest Routes**
+    
     GET /interests: Retrieve a list of all interests.
+    
     POST /interests: Create a new interest.
+    
     GET /interests/<id>: Retrieve a specific interest by ID.
+    
     PATCH /interests/<id>: Partially update a specific interest by ID.
+    
     DELETE /interests/<id>: Delete a specific interest by ID.
+
+
 
 ## Stretch Goals
 
