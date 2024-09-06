@@ -25,7 +25,8 @@ Project Page
 
 Interests Page
 
-![interestslistP4](https://github.com/user-attachments/assets/64a5d906-a038-4e90-abda-2d7243980932)
+![interestslistP4](https://github.com/user-attachments/assets/01241f57-908e-4ef6-911d-61817812b06d)
+
 
 
 ## User Stories
@@ -41,6 +42,7 @@ Interests Page
 7.    Users can edit their own profile
 
 ## Stretch Goals
+
 1.    Add authorization and authentication for users
 2.    Add project upvotes
 3.    Display most upvoted projects
@@ -54,25 +56,25 @@ Interests Page
 
 ## API Routes
 User Routes
-GET /users: Retrieve a list of all users.
-POST /users: Create a new user.
-GET /users/<id>: Retrieve a specific user by ID.
-PATCH /users/<id>: Partially update a specific user by ID.
-DELETE /users/<id>: Delete a specific user by ID.
+  GET /users: Retrieve a list of all users.
+  POST /users: Create a new user.
+  GET /users/<id>: Retrieve a specific user by ID.
+  PATCH /users/<id>: Partially update a specific user by ID.
+  DELETE /users/<id>: Delete a specific user by ID.
 
 Project Routes
-GET /projects: Retrieve a list of all projects.
-POST /projects: Create a new project.
-GET /projects/<id>: Retrieve a specific project by ID.
-PATCH /projects/<id>: Partially update a specific project by ID.
-DELETE /projects/<id>: Delete a specific project by ID.
+  GET /projects: Retrieve a list of all projects.
+  POST /projects: Create a new project.
+  GET /projects/<id>: Retrieve a specific project by ID.
+  PATCH /projects/<id>: Partially update a specific project by ID.
+  DELETE /projects/<id>: Delete a specific project by ID.
 
 Interest Routes
-GET /interests: Retrieve a list of all interests.
-POST /interests: Create a new interest.
-GET /interests/<id>: Retrieve a specific interest by ID.
-PATCH /interests/<id>: Partially update a specific interest by ID.
-DELETE /interests/<id>: Delete a specific interest by ID.
+  GET /interests: Retrieve a list of all interests.
+  POST /interests: Create a new interest.
+  GET /interests/<id>: Retrieve a specific interest by ID.
+  PATCH /interests/<id>: Partially update a specific interest by ID.
+  DELETE /interests/<id>: Delete a specific interest by ID.
 
 ## Stretch Goals
 
