@@ -1,0 +1,86 @@
+{
+    "projects": [
+      {
+        "id": 1,
+        "user_id": 1,
+        "title": "Project Alpha",
+        "description": "This is the description for Project Alpha.",
+        "link": "http://example.com/project-alpha",
+        "comments": [
+          {
+            "id": 1,
+            "text": "Great project!",
+            "project_id": 1
+          },
+          {
+            "id": 2,
+            "text": "Needs more details.",
+            "project_id": 1
+          }
+        ],
+        "interests": [
+          {
+            "id": 1,
+            "name": "React"
+          },
+          {
+            "id": 2,
+            "name": "JavaScript"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "user_id": 2,
+        "title": "Project Beta",
+        "description": "This is the description for Project Beta.",
+        "link": "http://example.com/project-beta",
+        "comments": [
+          {
+            "id": 3,
+            "text": "Impressive work!",
+            "project_id": 2
+          }
+        ],
+        "interests": [
+          {
+            "id": 3,
+            "name": "Node.js"
+          },
+          {
+            "id": 4,
+            "name": "Express"
+          }
+        ]
+      }
+    ],
+    "users": [
+      {
+        "id": 1,
+        "name": "Alice"
+      },
+      {
+        "id": 2,
+        "name": "Bob"
+      }
+    ],
+    "interests": [
+      {
+        "id": 1,
+        "name": "React"
+      },
+      {
+        "id": 2,
+        "name": "JavaScript"
+      },
+      {
+        "id": 3,
+        "name": "Node.js"
+      },
+      {
+        "id": 4,
+        "name": "Express"
+      }
+    ]
+  }
+  

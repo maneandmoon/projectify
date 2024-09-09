@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+// import NavBar from "./NavBar";
 import Search from "./Search";
 import ProjectList from "./ProjectList";
-import NewProjectForm from "./NewProjectForm";
-import InterestsList from "./InterestsList";
+// import NewProjectForm from "./NewProjectForm";
+// import InterestsList from "./InterestsList";
 import { NavLink } from "react-router-dom";
 
 function HomePage() {
@@ -55,11 +55,13 @@ const deleteProject = (id) => {
 
 return (
     <>
-    <NavBar />
-    <h1>Project List</h1>
+    {/* <NavBar /> */}
+    <h1>Projectify</h1>
     <div>
         <Search search={search} updateSearch={updateSearch} />
-        <NewProjectForm addProject={addProject} />
+
+        {/* <NewProjectForm addProject={addProject} /> */}
+
         <ProjectList
         projects={filteredProjects}
         updateInterest={updateInterest}
