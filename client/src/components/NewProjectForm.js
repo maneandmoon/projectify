@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+// id
+// user_id
+// title
+// description
+// link
+// comments
+// interests
+
 function NewProjectForm({ addProject }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
