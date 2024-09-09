@@ -6,25 +6,25 @@ function NavBar() {
     <header className="header">
       <a className="button">
         <NavLink to={"/"} className="button">
-            Home
+          Home
         </NavLink>
       </a>
 
       <a className="button">
         <NavLink to={"/Profile"} className="button">
-            Profile
+          Profile
         </NavLink>
       </a>
 
       <a className="button">
-        <NavLink to={"/Projects"} className="button">
+        <NavLink to={"/ProjectList"} className="button">
             Projects
         </NavLink>
       </a>
 
       <a className="button">
         <NavLink to={"/Search"} className="button">
-            Search
+          Search
         </NavLink>
       </a>
 
