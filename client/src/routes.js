@@ -4,7 +4,7 @@ import UserProfile from './components/UserProfile';
 import ProjectList from './components/ProjectList';
 import Search from './components/Search';
 import Login from './components/Login';
-import InterestsList from './components/InterestsList';
+import InterestList from './components/InterestList';
 
 const routes = [
     {
@@ -22,17 +22,17 @@ const routes = [
         path: "/Projects",
         element: <ProjectList />
     },
-    {
-        path: "/Search",
-        element: <Search />
-    },    
+    // {
+    //     path: "/Search",
+    //     element: <Search />
+    // },    
     {
         path: "/Login",
         element: <Login />
     },
     {
-        path: "/InterestsList",
-        element: <InterestsList />
+        path: "/InterestList",
+        element: <InterestList />
     }]
     }
 ];

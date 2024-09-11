@@ -1,16 +1,26 @@
+
 import React from "react";
-// import { Switch, Route } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import NavBar from "./components/NavBar.js";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import HomePage from "./components/HomePage";
+import ProjectListWrapper from "./components/ProjectListWrapper";
+import NewProjectForm from "./components/NewProjectForm";
+import InterestList from "./components/InterestList";
 
 function App() {
-  // return <h1>Project Client</h1>;
   return (
-    <div>
+    <Router>
       <NavBar />
-      <Outlet />
-    </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<ProjectListWrapper />} />
+        <Route path="/new-project-form" element={<NewProjectForm />} />
+        <Route path="/interest-list" element={<InterestList />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
+

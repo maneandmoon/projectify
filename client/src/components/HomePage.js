@@ -1,77 +1,67 @@
 import { useEffect, useState } from "react";
-// import NavBar from "./NavBar";
-import Search from "./Search";
+import { NavLink, useNavigate } from "react-router-dom";
 import ProjectList from "./ProjectList";
-// import NewProjectForm from "./NewProjectForm";
-// import InterestsList from "./InterestsList";
-import { NavLink } from "react-router-dom";
+import Search from "./Search"
 
 function HomePage() {
-const [projects, setProjects] = useState([]);
-const [search, setSearch] = useState("");
+  const [projects, setProjects] = useState([]);
+  const [search, setSearch] = useState("");
+  const [interestList, setInterestList] = useState([]);
+  const navigate = useNavigate();
 
-useEffect(() => {
-    fetch("http://localhost:3000/projects") 
-    .then((res) => {
+  useEffect(() => {
+    fetch("http://localhost:5555/projects")
+      .then((res) => {
         if (res.ok) {
-        return res.json();
+          return res.json();
         } else {
-        throw Error("Could not fetch the data from promise");
+          throw Error("Could not fetch the data from promise");
         }
-    })
-    .then((data) => setProjects(data))
-    .catch((err) =>
+      })
+      .then((data) => setProjects(data))
+      .catch((err) =>
         console.error("Was unable to reach the server for GET Request")
+      );
+  }, []);
+
+  const addToInterestList = (project) => {
+    setInterestList([...interestList, project]);
+    navigate("/interest-list");
+  };
+
+  const updateInterestList = (updatedProject) => {
+    setInterestList((prevInterestList) =>
+      prevInterestList.map((project) =>
+        updatedProject.id === project.id ? updatedProject : project
+      )
     );
-}, []);
+  };
 
-const addProject = (newProject) => {
-    setProjects([...projects, newProject]);
-};
-
-const updateSearch = (newSearch) => setSearch(newSearch);
-const filteredProjects = projects.filter((project) => {
-    return (
-    project.title.toLowerCase().includes(search.toLowerCase()) ||
-    project.description.toLowerCase().includes(search.toLowerCase())
-    );
-});
-
-function updateInterest(updatedProject) {
-    setProjects(
-    projects.map((prevProject) => {
-        if (updatedProject.id === prevProject.id) {
-        return { ...prevProject, interests: updatedProject.interests };
-        } else {
-        return prevProject;
-        }
-    })
-    );
-}
-
-const deleteProject = (id) => {
+  const deleteProject = (id) => {
     setProjects(projects.filter((project) => project.id !== id));
-};
+  };
 
-return (
+  const featuredProjects = projects.filter((project) => project.isFeatured);
+
+  return (
     <>
-    {/* <NavBar /> */}
-    <h1>Projectify</h1>
-    <div>
-        <Search search={search} updateSearch={updateSearch} />
+      <h1>Projectify</h1>
+      <div>
+        <section>
+          <h2>Featured Projects</h2>
+          <ProjectList
+            projects={featuredProjects}
+            updateInterest={updateInterestList}
+            deleteProject={deleteProject}
+            onAddToInterestList={addToInterestList}
+          />
+        </section>
 
-        {/* <NewProjectForm addProject={addProject} /> */}
-
-        <ProjectList
-        projects={filteredProjects}
-        updateInterest={updateInterest}
-        deleteProject={deleteProject}
-        />
-        <NavLink to="/InterestsList" className="button">Go to InterestsList</NavLink>
-        <NavLink to="/NewProject" className="button">Go to New Project Form</NavLink>
-    </div>
+        <NavLink to="/projects" className="button">View All Projects</NavLink>
+      </div>
     </>
-);
+  );
 }
 
 export default HomePage;
+

@@ -1,6 +1,15 @@
 {
     "projects": [
       {
+        "id": 15,
+        "title": "Sample Project",
+        "description": "This is a sample project",
+        "link": "http://example.com",
+        "comments": [],
+        "interests": [],
+        "isFeatured": true
+      },
+      {
         "id": 1,
         "user_id": 1,
         "title": "Project Alpha",
@@ -52,6 +61,57 @@
             "name": "Express"
           }
         ]
+      },
+      {
+        "id": 3,
+        "user_id": 3,
+        "title": "Project Gamma",
+        "description": "This is the description for Project Gamma.",
+        "link": "http://example.com/project-gamma",
+        "comments": [],
+        "interests": [
+          {
+            "id": 5,
+            "name": "GraphQL"
+          }
+        ],
+        "isFeatured": false
+      },
+      {
+        "id": 4,
+        "user_id": 1,
+        "title": "Project Delta",
+        "description": "This is the description for Project Delta.",
+        "link": "http://example.com/project-delta",
+        "comments": [
+          {
+            "id": 4,
+            "text": "Very detailed project!",
+            "project_id": 4
+          }
+        ],
+        "interests": [
+          {
+            "id": 6,
+            "name": "TypeScript"
+          }
+        ],
+        "isFeatured": true
+      },
+      {
+        "id": 5,
+        "user_id": 2,
+        "title": "Project Epsilon",
+        "description": "This is the description for Project Epsilon.",
+        "link": "http://example.com/project-epsilon",
+        "comments": [],
+        "interests": [
+          {
+            "id": 7,
+            "name": "Redux"
+          }
+        ],
+        "isFeatured": false
       }
     ],
     "users": [
@@ -62,6 +122,10 @@
       {
         "id": 2,
         "name": "Bob"
+      },
+      {
+        "id": 3,
+        "name": "Charlie"
       }
     ],
     "interests": [
@@ -80,7 +144,21 @@
       {
         "id": 4,
         "name": "Express"
+      },
+      {
+        "id": 5,
+        "name": "GraphQL"
+      },
+      {
+        "id": 6,
+        "name": "TypeScript"
+      },
+      {
+        "id": 7,
+        "name": "Redux"
       }
     ]
   }
+  
+
   

@@ -1,0 +1,51 @@
+import React, { useEffect, useState } from "react";
+import ProjectList from "./ProjectList";
+
+function ProjectListWrapper() {
+  const [projects, setProjects] = useState([]);
+  const [search, setSearch] = useState(""); //might add search 
+
+  useEffect(() => {
+    fetch("http://localhost:5555/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        // Ensure each project has the required fields (want completed projects returned)
+        const validatedProjects = data.map(project => ({
+          ...project,
+          title: project.title || '', // Default to empty string if undefined
+          description: project.description || '' // Default to empty string if undefined
+        }));
+        setProjects(validatedProjects);
+      })
+      .catch((err) => console.error("Unable to reach the server for GET request", err));
+  }, []);
+
+  const updateInterest = (updatedProject) => {
+    setProjects((prevProjects) =>
+      prevProjects.map((project) =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    );
+  };
+
+  const deleteProject = (id) => {
+    setProjects((prevProjects) => prevProjects.filter((project) => project.id !== id));
+  };
+
+  return (
+    <div>
+      <h2>All Projects</h2>
+      <ProjectList
+        projects={projects}
+        updateInterest={updateInterest}
+        deleteProject={deleteProject}
+        search={search} // Pass search term if filtering is needed here
+        setSearch={setSearch} // Pass setSearch function if needed 
+      />
+    </div>
+  );
+}
+
+export default ProjectListWrapper;
+
+

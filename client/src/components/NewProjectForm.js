@@ -3,6 +3,7 @@
 import { redirect, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import InterestList from './InterestList';
 
 //useNavigate in react router dom
 // id
@@ -19,12 +20,12 @@ function NewProjectForm() {
     const navigate = useNavigate
 
     const schema = yup.object().shape({
-        title: yup.string().required("required"),
+        title: yup.string().required("Title is required"),
         description: yup.string(),
-        link: yup.string(),
+        link: yup.string().url("Invalid URL"),
         comments: yup.string(),
-        interests: yup.string().required("required")
-
+        interests: yup.string().required("At least one interest is required")
+        // interests: yup.array().of(yup.string()).required("At least one interest is required")
     })
 
 //formik hook
@@ -35,7 +36,7 @@ function NewProjectForm() {
             description: "",
             link: "",
             comments: "",
-            interests: ""
+            interests: ""   //interests field as array //add and update interests?
         },
 
         //set schema
@@ -65,7 +66,16 @@ function NewProjectForm() {
                 navigate(`/projects/${data.id}`)
             })
         }
-    })
+    });
+
+    const handleAddInterest = (interest) => {
+        formik.setFieldValue('interests', [...formik.values.interests, interest]);
+    };
+
+    const handleRemoveInterest = (index) => {
+        const updatedInterests = formik.values.interests.filter((_, i) => i !== index);
+        formik.setFieldValue('interests', updatedInterests);
+    };
 
     return (
         <section>
@@ -117,6 +127,14 @@ function NewProjectForm() {
 					value={formik.values.interests}
 				/>
 				{formik.errors.interests && formik.touched.interests ? (<h3 style={{ color: "red" }}>{formik.errors.interests}</h3>) : "" }
+{/* 
+                <InterestList 
+                    interests={formik.values.interests}
+                    onAddInterest={handleAddInterest}
+                    onRemoveInterest={handleRemoveInterest}
+                />
+
+                <button type="submit">Submit</button> */}
             
             </form>
         </section>
