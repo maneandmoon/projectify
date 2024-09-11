@@ -2,7 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import './NavBar.css';
 
-function NavBar() {
+function NavBar({ user, setUser }) {
+  function handleLogoutClick() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+  }
   return (
     <header className="navbar">
       <nav>
@@ -15,6 +22,14 @@ function NavBar() {
           <li className="nav-item"><NavLink to="/interest-list" className="nav-link" activeClassName="active">Interest List</NavLink></li>
           <li className="nav-item"><NavLink to="/login" className="nav-link" activeClassName="active">Login</NavLink></li>
           
+        {/* will update to incldue this */}
+          
+          <NavLink to={"/Login"} className="button" onClick={handleLogoutClick}>
+            Logout
+        </NavLink>
+
+
+          
         </ul>
       </nav>
     </header>
@@ -22,3 +37,4 @@ function NavBar() {
 }
 
 export default NavBar;
+
