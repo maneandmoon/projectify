@@ -6,14 +6,16 @@ import ProjectPage from './ProjectPage';
 import NewProjectForm from "./NewProjectForm";
 import InterestList from "./InterestList";
 import Login from "./Login";
-import SignUpForm from "./SignUpForm"; 
+import SignUpPage from "./SignUpPage"; 
+import UserPage from "./UserPage"; // Import UserPage
 // import UserProfile from "./UserProfile";
 // import Search from "./Search";
 
 function App() {
   // return <h1>Project Client</h1>;
-  // const [projects, setProjects] = useState([]);
   const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState([]);
+  
 
   // // useEffect(() => {
   // //   // auto-login
@@ -46,7 +48,7 @@ function App() {
   // addProject={addProject}  --newprojectform
   return (
     <Router>
-      <NavBar />
+      <NavBar user={user} setUser={setUser} />
       <Routes>
         // <Route path="/" element={<HomePage />} />
         // <Route path="/projects" element={<ProjectPage />} />
@@ -59,12 +61,15 @@ function App() {
         // {/* <Route path="/search" element={<Search />} />
         {/* <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/projects" element={<ProtectedRoute element={<ProjectPage />} />} />
-        <Route path="/projects/:id" element={<ProtectedRoute element={<ProjectPage />} />} />
-        <Route path="/new-project-form" element={<ProtectedRoute element={<NewProjectForm />} />} />
-        <Route path="/interests" element={<ProtectedRoute element={<InterestList />} />} />
-        <Route path="/login" element={<Login onLogin={setUser} />} />
-        {/* <Route path="/signup" element={<SignUpPage />} /> */}
+        <Route path="/projects" element={<ProjectPage />} />
+        <Route path="/projects/:id" element={<ProjectPage/>} />
+        <Route path="/new-project-form" element={<NewProjectForm addProject={addProject} />} />
+        <Route path="/interests" element={<InterestList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUpPage />} /> 
+        <Route path="/users" element={<UserPage />} />
+        {/* <Route path="/user-profile" element={<UserProfile />} /> */}
+        {/* <Route path="/search" element={<Search />} /> */}
       </Routes>
     </Router>
   );

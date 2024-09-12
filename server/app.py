@@ -99,12 +99,15 @@ class CheckSession(Resource):
             return make_response({'message': '401: Not Authorized'}, 401)
 
 class Login(Resource):
+
     def post(self):
         data = request.get_json()
+        # print(data)
         username = data.get('username')
-        password = data.get('_password_hash')
+        password = data.get('password')
 
         user = User.query.filter_by(username=username).first()
+        print(session.get('user_id'))
 
         if user and user.authenticate(password):
             session['user_id'] = user.id
