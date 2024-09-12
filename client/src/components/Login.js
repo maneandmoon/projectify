@@ -8,16 +8,7 @@ function Login({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    // auto-login
-    fetch("http://localhost:5555/check_session").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
-
-  if (!user) return <Login onLogin={setUser} />;
+    if (!user) return <Login onLogin={setUser} />;
 
   return (
     <Wrapper>

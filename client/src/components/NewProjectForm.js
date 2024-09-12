@@ -22,6 +22,7 @@ function NewProjectForm() {
     const schema = yup.object().shape({
         title: yup.string().required("Title is required"),
         description: yup.string().max(25, "must be less than 25 characters"),
+        link: yup.string().required("Invalid URL"),
         // link: yup.string().url("Invalid URL"),
         // link: yup.string()
         // .test('is-valid-url', 'Invalid URL', value => {
@@ -111,14 +112,14 @@ function NewProjectForm() {
 				/>
 				{formik.errors.description && formik.touched.description ? (<h3 style={{ color: "red" }}>{formik.errors.description}</h3>) : "" }
 
-                {/* <label>Link</label>
+                <label>Link</label>
 				<input
 					type="text"
 					name="link"
 					onChange={formik.handleChange}
 					value={formik.values.link}
 				/>
-				{formik.errors.link && formik.touched.link ? (<h3 style={{ color: "red" }}>{formik.errors.link}</h3>) : "" } */}
+				{formik.errors.link && formik.touched.link ? (<h3 style={{ color: "red" }}>{formik.errors.link}</h3>) : "" }
 
                 <label>Comments</label>
 				<input
