@@ -1,24 +1,27 @@
 import React from 'react';
 
-function ProjectCard({ project, updateInterest, deleteProject, onAddToInterestList }) {
+function ProjectCard({ project, deleteProject, onAddToInterestList, showAddButton, showDelete, showAddToInterestList, }) {
   return (
-    <div>
-      <h2>{project.title}</h2>
+    <li
+      style={{
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        margin: "10px",
+        padding: "10px",
+        width: "300px",
+        boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+      }}
+    >
+      <h3>{project.title}</h3>
       <p>{project.description}</p>
-      <a href={project.link}>Project Link</a>
-      <div>
-        <h3>Interests:</h3>
-        <ul>
-          {project.interests && project.interests.map((interest) => (
-            <li key={interest.id}>{interest.name}</li>
-          ))}
-        </ul>
-      </div>
-      <button onClick={() => updateInterest(project)}>Update Interests</button>
-      <button onClick={() => deleteProject(project.id)}>Delete</button>
-      <button onClick={() => onAddToInterestList(project)}>Add to Interest List</button> {/* New button */}
-    </div>
+      <a href={project.link} target="_blank" rel="noopener noreferrer">
+        Project Link
+      </a>
+      {showDelete && <button onClick={() => deleteProject(project.id)}>Delete</button>}
+      {showAddToInterestList && <button onClick={() => onAddToInterestList(project)}>Add to Interest List</button>}
+    </li>
   );
 }
+
 
 export default ProjectCard;

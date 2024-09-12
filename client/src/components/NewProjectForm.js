@@ -1,29 +1,27 @@
-// // import { useState } from "react";
-// import React, { useEffect, useState } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import InterestList from './InterestList';
 
-//useNavigate in react router dom
-// id
-// user_id
-// title
-// description
-// link
-// comments
-// interests
 
-// use formik and yup
-// yup schema
 function NewProjectForm() {
-    const navigate = useNavigate
+    const navigate = useNavigate();
 
     const schema = yup.object().shape({
         title: yup.string().required("Title is required"),
-        description: yup.string(),
-        link: yup.string().url("Invalid URL"),
-        comments: yup.string(),
+        description: yup.string().max(25, "must be less than 25 characters"),
+        link: yup.string().required("Invalid URL"),
+        // link: yup.string().url("Invalid URL"),
+        // link: yup.string()
+        // .test('is-valid-url', 'Invalid URL', value => {
+        //   if (!value) return true; // Allow empty values if not required
+        //   try {
+        //     new URL(value); // Validate URL
+        //     return true;
+        //   } catch (e) {
+        //     return false;
+        //   }
+        // }),
+        comments: yup.string().max(100, "must be less than 100 characters"),
         interests: yup.string().required("At least one interest is required")
         // interests: yup.array().of(yup.string()).required("At least one interest is required")
     })
@@ -34,7 +32,7 @@ function NewProjectForm() {
         initialValues:{
             title: "",
             description: "",
-            link: "",
+            // link: "",
             comments: "",
             interests: ""   //interests field as array //add and update interests?
         },
@@ -127,14 +125,8 @@ function NewProjectForm() {
 					value={formik.values.interests}
 				/>
 				{formik.errors.interests && formik.touched.interests ? (<h3 style={{ color: "red" }}>{formik.errors.interests}</h3>) : "" }
-{/* 
-                <InterestList 
-                    interests={formik.values.interests}
-                    onAddInterest={handleAddInterest}
-                    onRemoveInterest={handleRemoveInterest}
-                />
-
-                <button type="submit">Submit</button> */}
+                
+                <button type="submit">Submit</button>
             
             </form>
         </section>
@@ -143,48 +135,4 @@ function NewProjectForm() {
 
 }
 
-
-// function NewProjectForm({ addProject }) {
-//     const [title, setTitle] = useState("");
-//     const [description, setDescription] = useState("");
-//     const [link, setLink] = useState("");
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         const newProject = { title, description, link };
-//         fetch("http://localhost:3000/projects", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(newProject),
-//         })
-//         .then((res) => res.json())
-//         .then((data) => addProject(data));
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmit}>
-//         <input
-//             type="text"
-//             placeholder="Title"
-//             value={title}
-//             onChange={(e) => setTitle(e.target.value)}
-//         />
-//         <input
-//             type="text"
-//             placeholder="Description"
-//             value={description}
-//             onChange={(e) => setDescription(e.target.value)}
-//         />
-//         <input
-//             type="text"
-//             placeholder="Link"
-//             value={link}
-//             onChange={(e) => setLink(e.target.value)}
-//         />
-//         <button type="submit">Add Project</button>
-//         </form>
-//     );
-//     }
 export default NewProjectForm; 

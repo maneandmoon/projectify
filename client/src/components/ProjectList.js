@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 import Search from './Search';
 
-function ProjectList({ projects, updateInterest, deleteProject, search, setSearch }) {
+function ProjectList({ projects, updateInterest, deleteProject, search, setSearch, onAddToInterestList, showDelete, showAddToInterestList }) {
   // Ensure that the search term is always a string
   const searchTerm = search || '';
 
@@ -30,6 +30,7 @@ function ProjectList({ projects, updateInterest, deleteProject, search, setSearc
             updateInterest={updateInterest}
             deleteProject={deleteProject}
             onAddToInterestList={() => {}} 
+            showAddToInterestList={true}
           />
         ))
       ) : (
@@ -40,3 +41,5 @@ function ProjectList({ projects, updateInterest, deleteProject, search, setSearc
 }
 
 export default ProjectList;
+
+

@@ -38,7 +38,7 @@ if __name__ == '__main__':
             user = User(
                 username=fake.user_name(),
                 # email=fake.email(),
-                password=fake.password(),
+                # password=fake.password(),
                 bio=fake.text(max_nb_chars=200),
                 # avatar=fake.image_url()
             )
@@ -53,7 +53,9 @@ if __name__ == '__main__':
                 user_id=rc(users).id,
                 title=fake.sentence(nb_words=6),
                 description=fake.text(max_nb_chars=500),
-                link=fake.url()
+                link=fake.url(),
+                is_featured=randint(0, 1) == 1  
+
             )
             projects.append(project)
             db.session.add(project)

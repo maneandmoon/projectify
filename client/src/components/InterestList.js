@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import ProjectCard from './ProjectCard';
 
 function InterestList() {
   const [interestedProjects, setInterestedProjects] = useState([]);
   const [error, setError] = useState(null);
 
-//error handling? 
-//need to fetch projects from b/e
-//filter interested projects
-//map over interested proj and render on page
-
   useEffect(() => {
-    fetch("http://localhost:5555/projects") 
+    fetch("http://localhost:5555/interests")
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -25,34 +21,44 @@ function InterestList() {
       .catch((err) => setError(err.message));
   }, []);
 
-  return (
-    <div>
-      <h1>Interest List</h1>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {interestedProjects.length > 0 ? (
-        <ul>
-          {interestedProjects.map((project) => (
-            <li key={project.id}>
-              <h2>{project.title}</h2>
-              <p>{project.description}</p>
-              <a href={project.link}>Project Link</a>
-              <div>
-                <h3>Interests:</h3>
-                <ul>
-                  {project.interests.map((interest) => (
-                    <li key={interest.id}>{interest.name}</li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No projects in the interest list.</p>
-      )}
-    </div>
-  );
-}
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5555/interests/${id}`, {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        if (res.ok) {
+          setInterestedProjects(interestedProjects.filter(project => project.id !== id));
+        } else {
+          throw new Error('Failed to delete the project');
+        }
+      })
+      .catch((err) => setError(err.message));
+  };
 
+return (
+  <div style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
+    <h1 style={{ textAlign: 'center', color: '#333' }}>Interest List</h1>
+    {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+    {interestedProjects.length > 0 ? (
+      <ul style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', listStyleType: 'none', padding: 0 }}>
+        {interestedProjects.map((project) => (
+          <li key={project.id} style={{ margin: '10px' }}>
+            <ProjectCard
+              project={project}
+              deleteProject={handleDelete}
+              // showAddButton={false} // Remove "Add to Interest List" button
+              showDelete={false}
+              showAddToInterestList={false} // Hide Add to Interest List button
+            />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p style={{ textAlign: 'center' }}>No projects in the interest list.</p>
+    )}
+  </div>
+);
+}
 export default InterestList;
+
 

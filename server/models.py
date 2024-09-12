@@ -44,6 +44,7 @@ class Project(db.Model, SerializerMixin):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     link = db.Column(db.String(200))
+    is_featured = db.Column(db.Boolean, default=False)
     comments = db.relationship('Comment', back_populates='project')
     interests = db.relationship('ProjectInterest', back_populates='project')
     interest_names = association_proxy('interests', 'interest_name')
