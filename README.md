@@ -27,7 +27,96 @@ Interests Page
 
 ![interestslistP4](https://github.com/user-attachments/assets/01241f57-908e-4ef6-911d-61817812b06d)
 
+## Prerequisites
+Before starting, make sure you have completed the following:
 
+    Git is installed.
+    
+    You have a GitHub account.
+    
+    Node.js and npm are installed.
+    
+    Python and pipenv are installed.
+    
+    Honcho is installed for managing Procfile-based applications.
+
+## Getting Started
+To set up a local instance, follow these steps:
+
+## Front-end Installation
+
+1. Clone the repository:
+
+   git clone git@github.com:maneandmoon/projectify.git
+
+3. Change to the root directory:
+
+   cd projectify
+
+4. Install npm packages:
+
+   npm install
+
+5. Move to the front-end directory:
+
+   cd client
+
+6. Install npm packages in the front-end directory:
+
+   npm install
+
+## Back-end Installation
+
+Make sure you are in the root directory of the project.
+
+1. Install pipenv and the necessary dependencies:
+
+   pipenv install
+
+3. Activate the virtual environment:
+
+   pipenv shell
+
+## Database Setup
+
+1. Navigate to the data directory:
+
+   cd server/Database-Imports
+
+3. Create a database file from the SQL file:
+
+   sqlite3 app.db < backup.sql
+
+4. Alternatively, you can create a migration environment by navigating to cd server and following these prompts to create two new directories--
+   instance and migrations, where app.db will be added to the instance directory.
+
+
+           flask db init
+
+           flask db migrate -m "Initial migration."
+
+           flask db upgrade
+
+           python seed.py
+
+    
+
+## Running the Application
+Ensure you are in the root directory of the project.
+
+Start the application using Honcho:
+
+    honcho start -f Procfile.dev
+
+## API Usage
+To interact with the API, send requests to the endpoints defined in your backend. For example:
+
+    curl -X GET http://localhost:3000
+
+Alternatively, use a tool like Postman to set the URL to your local server's API endpoint and make your desired requests.
+
+## Additional Notes
+Verify that your SQLite database file is correctly set up before starting the back-end server.
 
 ## User Stories
 
