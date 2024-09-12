@@ -6,7 +6,7 @@ function SignUpForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,15 +22,16 @@ function SignUpForm({ onLogin }) {
       body: JSON.stringify({
         username,
         password,
-        password_confirmation: passwordConfirmation,
-        image_url: imageUrl
+        password_confirmation: passwordConfirmation
       }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => onLogin(user));
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        r.json().then((err) => {
+          setErrors(err.errors);
+        });
       }
     });
   }
@@ -67,7 +68,7 @@ function SignUpForm({ onLogin }) {
           autoComplete="current-password"
         />
       </FormField>
-      <FormField>
+      {/* <FormField>
         <Label htmlFor="imageUrl">Profile Image</Label>
         <Input
           type="text"
@@ -75,13 +76,15 @@ function SignUpForm({ onLogin }) {
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
-      </FormField>
+      </FormField> */}
       <FormField>
         <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
       </FormField>
       <FormField>
-        {errors.map((err) => (
+        {Array.isArray(errors) && errors.map((err) => (
           <Error key={err}>{err}</Error>
+        // {errors.map((err) => (
+        //   <Error key={err}>{err}</Error>
         ))}
       </FormField>
     </form>

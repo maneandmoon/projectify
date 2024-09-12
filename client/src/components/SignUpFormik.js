@@ -34,8 +34,7 @@ function SignUpForm({ onLogin }) {
         body: JSON.stringify({
           username: values.username,
           password: values.password,
-          password_confirmation: values.passwordConfirmation,
-          image_url: values.imageUrl,
+          password_confirmation: values.passwordConfirmation
         }),
       })
       .then((r) => {

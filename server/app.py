@@ -62,14 +62,15 @@ class Signup(Resource):
         try:
             data = request.get_json()
             new_user = User(
-                username=data.get('username'),
-                image_url=data.get('image_url')
+                username=data.get('username')#,
+                # image_url=data.get('image_url')
             )
             new_user.password_hash = data.get('password')
             db.session.add(new_user)
             db.session.commit()
             
             session['user_id'] = new_user.id
+            # print(new_user)
             return make_response(new_user.to_dict(), 201)
             
         except Exception as e:
@@ -91,6 +92,7 @@ class Signup(Resource):
 class CheckSession(Resource):
     def get(self):
         user = User.query.filter(User.id == session.get('user_id')).first()
+        print(session.get('user_id'), user)
         if user:
             return make_response(user.to_dict())
         else:
@@ -122,7 +124,7 @@ class Logout(Resource):
 
 
 api.add_resource(Signup, '/signup', endpoint='signup')
-api.add_resource(CheckSession, '/check_session', endpoint='check_session')
+# api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
 api.add_resource(Logout, '/logout', endpoint='logout')
 
@@ -160,14 +162,14 @@ def users():
         if existing_user:
              return make_response(({"error": "Username already exists"}), 400)
 
-        existing_email = User.query.filter_by(email=data.get("email")).first()
-        if existing_email:
-            return make_response(({"error": "Email already exists"}), 400)
+        # existing_email = User.query.filter_by(email=data.get("email")).first()
+        # if existing_email:
+        #     return make_response(({"error": "Email already exists"}), 400)
 
         try:
             users = User(
                 username = data.get("username"),
-                email = data.get("email"),
+                # email = data.get("email"),
                 password = data.get("password"),
                 bio = data.get("bio"),
                 avatar = data.get("avatar")
