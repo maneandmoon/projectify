@@ -19,6 +19,8 @@ function NavBar({ user, setUser }) {
           <li className="nav-item"><NavLink to="/projects" className="nav-link" activeClassName="active">Projects</NavLink></li>
           
           <li className="nav-item"><NavLink to="/new-project-form" className="nav-link" activeClassName="active">New Project</NavLink></li>
+
+          <li className="nav-item"><NavLink to="/interests" className="nav-link" activeClassName="active">Interests</NavLink></li>
         
           <li className="nav-item"><NavLink to="/Login" className="nav-link" activeClassName="active" onClick={handleLogoutClick}>Login</NavLink></li>
           
