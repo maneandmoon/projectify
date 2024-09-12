@@ -12,7 +12,8 @@ import SignUpPage from "./SignUpPage";
 
 function App() {
   // return <h1>Project Client</h1>;
-  // const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [user, setUser] = useState(null);
 
   // useEffect(() => {
   //   // auto-login
@@ -23,8 +24,8 @@ function App() {
   //   });
   // }, []);
 
-  // if (!user) return <Login onLogin={setUser} />;
-  const [projects, setProjects] = useState([]);
+  if (!user) return <Login onLogin={setUser} />;
+  // const [projects, setProjects] = useState([]);
 
   // Define the addProject function
   const addProject = (newProject) => {
