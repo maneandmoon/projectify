@@ -1,8 +1,8 @@
-"""initial migration
+"""Initial migration
 
-Revision ID: dadb0fa4bbab
+Revision ID: 1ecf0c1eb6dd
 Revises: 
-Create Date: 2024-09-06 11:50:56.666011
+Create Date: 2024-09-11 18:06:41.403286
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dadb0fa4bbab'
+revision = '1ecf0c1eb6dd'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,8 +21,7 @@ def upgrade():
     op.create_table('interests',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -31,6 +30,8 @@ def upgrade():
     sa.Column('password', sa.String(length=120), nullable=False),
     sa.Column('bio', sa.String(length=500), nullable=True),
     sa.Column('avatar', sa.String(length=200), nullable=True),
+    sa.Column('_password_hash', sa.String(), nullable=True),
+    sa.Column('image_url', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -41,6 +42,7 @@ def upgrade():
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('description', sa.Text(), nullable=False),
     sa.Column('link', sa.String(length=200), nullable=True),
+    sa.Column('is_featured', sa.Boolean(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_projects_user_id_users')),
     sa.PrimaryKeyConstraint('id')
     )

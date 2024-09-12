@@ -26,7 +26,7 @@
 # Standard library imports (SK: added Flask, make_response and jsonify)
 from flask import Flask
 
-#from flask_cors import CORS
+from flask_cors import CORS
 #from flask_migrate import Migrate
 #from flask_restful import Api
 #from flask_sqlalchemy import SQLAlchemy
@@ -45,6 +45,8 @@ from config import app, db, api
 from models import User, Project, Interest, UserInterest, ProjectInterest, Comment
 #from sqlalchemy.exc import IntegrityError
 
+
+CORS(app)  # Enable CORS for all routes
 
 
 # Views go here!
@@ -220,6 +222,12 @@ def user_by_id(id):
 
 
 ## PROJECT Routes
+@app.route('/featured-projects')
+def get_featured_projects():
+    projs = Project.query.filter_by(is_featured=True).all()
+    projs_list = [proj.to_dict() for proj in projs]
+    return make_response(projs_list, 200)
+
 @app.route('/projects', methods = ['GET', 'POST'])
 def projects():
 
@@ -362,7 +370,6 @@ def interest_by_id(id):
         }
 
         return make_response(response_body, 204)
-
 
 
 ## COMMENT Routes

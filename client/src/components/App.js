@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from "react";
-// import { Switch, Route } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import NavBar from "./NavBar.js";
-import Login from "../Login";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NavBar from "./NavBar";
+import HomePage from "./HomePage";
+import ProjectPage from './ProjectPage'; 
+import NewProjectForm from "./NewProjectForm";
+import InterestList from "./InterestList";
+import Login from "./Login";
+import SignUpPage from "./SignUpPage"; 
+import UserProfile from "./UserProfile";
+import Search from "./Search";
 
 function App() {
-  // return <h1>Project Client</h1>;
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // auto-login
-    fetch("/check_session").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
-  }, []);
-
-  if (!user) return <Login onLogin={setUser} />;
-
   return (
-    <div>
-      <NavBar user={user} setUser={setUser} />
-      <Outlet />
-    </div>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects" component={ProjectPage} />
+        <Route path="/new-project-form" element={<NewProjectForm />} />
+        <Route path="/interests" element={<InterestList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUpPage />} /> 
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/search" element={<Search />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+

@@ -1,7 +1,7 @@
 import App from "./App";
 import HomePage from './components/HomePage';
 import UserProfile from './components/UserProfile';
-import ProjectList from './components/ProjectList';
+import ProjectPage from './components/ProjectPage';
 import Search from './components/Search';
 import Login from './components/Login';
 import InterestList from './components/InterestList';
@@ -15,23 +15,23 @@ const routes = [
         element: <HomePage />
     },
     {
-        path: "/Profile",
+        path: "/profile",
         element: <UserProfile />
     },
     {
-        path: "/Projects",
-        element: <ProjectList />
+        path: "/projects",
+        element: <ProjectPage />
     },
     // {
-    //     path: "/Search",
+    //     path: "/search",
     //     element: <Search />
     // },    
     {
-        path: "/Login",
+        path: "/login",
         element: <Login />
     },
     {
-        path: "/InterestList",
+        path: "/interests",
         element: <InterestList />
     }]
     }

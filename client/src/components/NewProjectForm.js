@@ -17,13 +17,23 @@ import InterestList from './InterestList';
 // use formik and yup
 // yup schema
 function NewProjectForm() {
-    const navigate = useNavigate
+    const navigate = useNavigate();
 
     const schema = yup.object().shape({
         title: yup.string().required("Title is required"),
-        description: yup.string(),
-        link: yup.string().url("Invalid URL"),
-        comments: yup.string(),
+        description: yup.string().max(25, "must be less than 25 characters"),
+        // link: yup.string().url("Invalid URL"),
+        // link: yup.string()
+        // .test('is-valid-url', 'Invalid URL', value => {
+        //   if (!value) return true; // Allow empty values if not required
+        //   try {
+        //     new URL(value); // Validate URL
+        //     return true;
+        //   } catch (e) {
+        //     return false;
+        //   }
+        // }),
+        comments: yup.string().max(100, "must be less than 100 characters"),
         interests: yup.string().required("At least one interest is required")
         // interests: yup.array().of(yup.string()).required("At least one interest is required")
     })
@@ -34,7 +44,7 @@ function NewProjectForm() {
         initialValues:{
             title: "",
             description: "",
-            link: "",
+            // link: "",
             comments: "",
             interests: ""   //interests field as array //add and update interests?
         },
@@ -101,14 +111,14 @@ function NewProjectForm() {
 				/>
 				{formik.errors.description && formik.touched.description ? (<h3 style={{ color: "red" }}>{formik.errors.description}</h3>) : "" }
 
-                <label>Link</label>
+                {/* <label>Link</label>
 				<input
 					type="text"
 					name="link"
 					onChange={formik.handleChange}
 					value={formik.values.link}
 				/>
-				{formik.errors.link && formik.touched.link ? (<h3 style={{ color: "red" }}>{formik.errors.link}</h3>) : "" }
+				{formik.errors.link && formik.touched.link ? (<h3 style={{ color: "red" }}>{formik.errors.link}</h3>) : "" } */}
 
                 <label>Comments</label>
 				<input
@@ -127,14 +137,8 @@ function NewProjectForm() {
 					value={formik.values.interests}
 				/>
 				{formik.errors.interests && formik.touched.interests ? (<h3 style={{ color: "red" }}>{formik.errors.interests}</h3>) : "" }
-{/* 
-                <InterestList 
-                    interests={formik.values.interests}
-                    onAddInterest={handleAddInterest}
-                    onRemoveInterest={handleRemoveInterest}
-                />
-
-                <button type="submit">Submit</button> */}
+                
+                <button type="submit">Submit</button>
             
             </form>
         </section>
