@@ -8,6 +8,7 @@ import HomePage from "./HomePage";
 import ProjectListWrapper from "./ProjectListWrapper";
 import NewProjectForm from "./NewProjectForm";
 import InterestList from "./InterestList";
+import UserPage from "./UserPage"; // Import UserPage
 
 function App() {
   // return <h1>Project Client</h1>;
@@ -33,6 +34,7 @@ function App() {
           <Route path="/projects" element={<ProjectListWrapper />} />
           <Route path="/new-project-form" element={<NewProjectForm />} />
           <Route path="/interest-list" element={<InterestList />} />
+          <Route path="/users" element={<UserPage />} />
         </Routes>
       </Router>
       {/* <Outlet /> */}

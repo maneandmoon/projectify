@@ -15,7 +15,7 @@ function NavBar({ user, setUser }) {
       <nav>
         <ul className="nav-links">
           <li className="nav-item"><NavLink to="/" className="nav-link" activeClassName="active">Home</NavLink></li>
-          <li className="nav-item"><NavLink to="/profile" className="nav-link" activeClassName="active">Profile</NavLink></li>
+          <li className="nav-item"><NavLink to="/users" className="nav-link" activeClassName="active">Users</NavLink></li>
           <li className="nav-item"><NavLink to="/project-list" className="nav-link" activeClassName="active">Projects</NavLink></li>
           <li className="nav-item"><NavLink to="/new-project-form" className="nav-link" activeClassName="active">New Project</NavLink></li>
           {/* <li className="nav-item"><NavLink to="/search" className="nav-link" activeClassName="active">Search</NavLink></li> */}
@@ -29,4 +29,3 @@ function NavBar({ user, setUser }) {
 }
 
 export default NavBar;
-
