@@ -17,13 +17,6 @@ function ProjectCard({ project, deleteProject, onAddToInterestList, showAddButto
       <a href={project.link} target="_blank" rel="noopener noreferrer">
         Project Link
       </a>
-      {/* <button onClick={() => deleteProject(project.id)}>Delete</button>
-      <button onClick={() => onAddToInterestList(project)}>Add to Interest List</button> {/* Pass the project */}
-      {/* {showAddButton && (
-        <button onClick={() => onAddToInterestList(project)}>Add to Interest List</button>
-      // )} */}
-    {/* </li> */} 
-
       {showDelete && <button onClick={() => deleteProject(project.id)}>Delete</button>}
       {showAddToInterestList && <button onClick={() => onAddToInterestList(project)}>Add to Interest List</button>}
     </li>

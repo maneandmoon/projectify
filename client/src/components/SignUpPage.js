@@ -1,11 +1,11 @@
 import React from 'react';
-import SignUpFormik from './SignUpFormik'; 
+import SignUpForm from './SignUpForm'; 
 
 function SignUpPage({ onLogin }) {
   return (
     <div>
       <h1>Sign Up</h1>
-      <SignUpFormik onLogin={onLogin} />
+      <SignUpForm onLogin={onLogin} />
     </div>
   );
 }
