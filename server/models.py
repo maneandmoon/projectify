@@ -9,15 +9,15 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+    # email = db.Column(db.String(120), unique=True, nullable=False)
+    # password = db.Column(db.String(120), nullable=False)
     bio = db.Column(db.String(500))
     avatar = db.Column(db.String(200))
     projects = db.relationship('Project', back_populates='user')
     interests = db.relationship('UserInterest', back_populates='user')
     interest_names = association_proxy('interests', 'interest_name')
     _password_hash = db.Column(db.String)
-    image_url = db.Column(db.String)
+    # image_url = db.Column(db.String)
 
     serialize_rules = ('-projects.user', '-interests.user', '-projects.comments', '-projects.interests')
     

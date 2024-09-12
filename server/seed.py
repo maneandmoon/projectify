@@ -37,10 +37,10 @@ if __name__ == '__main__':
         for _ in range(30):
             user = User(
                 username=fake.user_name(),
-                email=fake.email(),
+                # email=fake.email(),
                 password=fake.password(),
                 bio=fake.text(max_nb_chars=200),
-                avatar=fake.image_url()
+                # avatar=fake.image_url()
             )
             users.append(user)
             db.session.add(user)
