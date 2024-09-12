@@ -7,13 +7,15 @@ import NewProjectForm from "./NewProjectForm";
 import InterestList from "./InterestList";
 import Login from "./Login";
 import SignUpPage from "./SignUpPage"; 
+import UserPage from "./UserPage"; // Import UserPage
 // import UserProfile from "./UserProfile";
 // import Search from "./Search";
 
 function App() {
   // return <h1>Project Client</h1>;
-  const [projects, setProjects] = useState([]);
   const [user, setUser] = useState(null);
+  const [projects, setProjects] = useState([]);
+  
 
   // useEffect(() => {
   //   // auto-login
@@ -35,7 +37,7 @@ function App() {
   
   return (
     <Router>
-      <NavBar />
+      <NavBar user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectPage />} />
@@ -44,6 +46,7 @@ function App() {
         <Route path="/interests" element={<InterestList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUpPage />} /> 
+        <Route path="/users" element={<UserPage />} />
         {/* <Route path="/user-profile" element={<UserProfile />} /> */}
         {/* <Route path="/search" element={<Search />} /> */}
       </Routes>

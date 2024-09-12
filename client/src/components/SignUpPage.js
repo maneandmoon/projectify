@@ -1,16 +1,16 @@
-import React from 'react';
-import SignUpForm from './SignUpForm'; 
+// import React from 'react';
+// import SignUpForm from './SignUpForm'; 
 
-function SignUpPage({ onLogin }) {
-  return (
-    <div>
-      <h1>Sign Up</h1>
-      <SignUpForm onLogin={onLogin} />
-    </div>
-  );
-}
+// function SignUpPage({ onLogin }) {
+//   return (
+//     <div>
+//       <h1>Sign Up</h1>
+//       <SignUpForm onLogin={onLogin} />
+//     </div>
+//   );
+// }
 
-export default SignUpPage;
+// export default SignUpPage;
 
 
 // ERROR
