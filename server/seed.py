@@ -38,7 +38,7 @@ if __name__ == '__main__':
             user = User(
                 username=fake.user_name(),
                 # email=fake.email(),
-                password=fake.password(),
+                # password=fake.password(),
                 bio=fake.text(max_nb_chars=200),
                 # avatar=fake.image_url()
             )

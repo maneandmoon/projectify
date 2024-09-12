@@ -1,14 +1,8 @@
 """Initial migration
 
-<<<<<<<< HEAD:server/migrations/versions/1ecf0c1eb6dd_initial_migration.py
-Revision ID: 1ecf0c1eb6dd
+Revision ID: b8b524a69d5a
 Revises: 
-Create Date: 2024-09-11 18:06:41.403286
-========
-Revision ID: 6302c3be518d
-Revises: 
-Create Date: 2024-09-11 17:05:04.784904
->>>>>>>> main:server/migrations/versions/6302c3be518d_initial_migration.py
+Create Date: 2024-09-11 20:09:35.775941
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:server/migrations/versions/1ecf0c1eb6dd_initial_migration.py
-revision = '1ecf0c1eb6dd'
-========
-revision = '6302c3be518d'
->>>>>>>> main:server/migrations/versions/6302c3be518d_initial_migration.py
+revision = 'b8b524a69d5a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -39,10 +29,6 @@ def upgrade():
     sa.Column('bio', sa.String(length=500), nullable=True),
     sa.Column('avatar', sa.String(length=200), nullable=True),
     sa.Column('_password_hash', sa.String(), nullable=True),
-<<<<<<<< HEAD:server/migrations/versions/1ecf0c1eb6dd_initial_migration.py
-    sa.Column('image_url', sa.String(), nullable=True),
-========
->>>>>>>> main:server/migrations/versions/6302c3be518d_initial_migration.py
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('username')
     )
