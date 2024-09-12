@@ -46,7 +46,7 @@ class Project(db.Model, SerializerMixin):
     link = db.Column(db.String(200))
     is_featured = db.Column(db.Boolean, default=False)
     # comments = db.relationship('Comment', back_populates='project')
-    interests = db.relationship('ProjectInterest', back_populates='project')
+    interests = db.relationship('ProjectInterest', back_populates='project', cascade='all, delete-orphan')
 
     # cascade='all, delete-orphan'
     interest_names = association_proxy('interests', 'interest_name')

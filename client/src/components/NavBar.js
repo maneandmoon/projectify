@@ -16,10 +16,10 @@ function NavBar({ user, setUser }) {
         <ul className="nav-links">
           <li className="nav-item"><NavLink to="/" className="nav-link" activeClassName="active">Home</NavLink></li>
           <li className="nav-item"><NavLink to="/users" className="nav-link" activeClassName="active">Users</NavLink></li>
-          <li className="nav-item"><NavLink to="/project-list" className="nav-link" activeClassName="active">Projects</NavLink></li>
+          <li className="nav-item"><NavLink to="/projects" className="nav-link" activeClassName="active">Projects</NavLink></li>
           <li className="nav-item"><NavLink to="/new-project-form" className="nav-link" activeClassName="active">New Project</NavLink></li>
-          {/* <li className="nav-item"><NavLink to="/search" className="nav-link" activeClassName="active">Search</NavLink></li> */}
-          <li className="nav-item"><NavLink to="/interest-list" className="nav-link" activeClassName="active">Interest List</NavLink></li>
+
+          <li className="nav-item"><NavLink to="/interests" className="nav-link" activeClassName="active">Interest List</NavLink></li>
           {user ? (
             <>
               <li className="nav-item">
