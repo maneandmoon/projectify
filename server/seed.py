@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Project, Comment, Interest, UserInterest, ProjectInterest
+from models import db, User, Project, Interest, UserInterest, ProjectInterest
 
 if __name__ == '__main__':
     fake = Faker()
@@ -18,7 +18,7 @@ if __name__ == '__main__':
         # Clear existing data
         db.session.query(UserInterest).delete()
         db.session.query(ProjectInterest).delete()
-        db.session.query(Comment).delete()
+        # db.session.query(Comment).delete()
         db.session.query(Project).delete()
         db.session.query(User).delete()
         db.session.query(Interest).delete()
@@ -37,10 +37,10 @@ if __name__ == '__main__':
         for _ in range(30):
             user = User(
                 username=fake.user_name(),
-                email=fake.email(),
-                password=fake.password(),
+                # email=fake.email(),
+                # password=fake.password(),
                 bio=fake.text(max_nb_chars=200),
-                avatar=fake.image_url()
+                # avatar=fake.image_url()
             )
             users.append(user)
             db.session.add(user)
@@ -53,21 +53,23 @@ if __name__ == '__main__':
                 user_id=rc(users).id,
                 title=fake.sentence(nb_words=6),
                 description=fake.text(max_nb_chars=500),
-                link=fake.url()
+                link=fake.url(),
+                is_featured=randint(0, 1) == 1  
+
             )
             projects.append(project)
             db.session.add(project)
         db.session.commit()
 
-        # Create comments
-        for _ in range(80):
-            comment = Comment(
-                project_id=rc(projects).id,
-                user_id=rc(users).id,
-                content=fake.text(max_nb_chars=200)
-            )
-            db.session.add(comment)
-        db.session.commit()
+        # # Create comments
+        # for _ in range(80):
+        #     comment = Comment(
+        #         project_id=rc(projects).id,
+        #         user_id=rc(users).id,
+        #         content=fake.text(max_nb_chars=200)
+        #     )
+        #     db.session.add(comment)
+        # db.session.commit()
 
         # Create user interests
         for user in users:

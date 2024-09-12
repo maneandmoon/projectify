@@ -7,47 +7,181 @@
 Projectify is a straightforward platform that allows students and professionals to showcase their work and connect with other students or professionals and recruiters based on interests/desires.
 
 ## Wireframe
+
 Home Page
 
-![projectify](https://github.com/user-attachments/assets/fc443428-d03a-4123-9143-70f86cd08e41)
+![projectifyhomepageP4](https://github.com/user-attachments/assets/0101747d-239c-4d9e-86d6-c14d9a36ccd7)
 
-Search 
-
-![Searcp4](https://github.com/user-attachments/assets/b218939f-c2be-4558-abd3-afdb29821760)
 
 Profile Page
 
-![profilep4](https://github.com/user-attachments/assets/db83923f-6cea-49e5-97d2-4dc83e5b083d)
+![profilepageP4](https://github.com/user-attachments/assets/b4a580ea-3cbb-43b2-a124-9aa5e12c3a42)
+
 
 Project Page
 
-![projectsp4](https://github.com/user-attachments/assets/38f3c26d-56b9-44ee-b640-1be8cea4be27)
+![projectpageP4](https://github.com/user-attachments/assets/06b4371d-f003-49f8-ac31-0bac5552368f)
 
-Favorites Page
 
-![favoritesp4](https://github.com/user-attachments/assets/fc0fce26-6b44-49af-ac13-63b566c431a8)
+Interests Page
+
+![interestslistP4](https://github.com/user-attachments/assets/01241f57-908e-4ef6-911d-61817812b06d)
+
+## Prerequisites
+Before starting, make sure you have completed the following:
+
+    Git is installed.
+    
+    You have a GitHub account.
+    
+    Node.js and npm are installed.
+    
+    Python and pipenv are installed.
+    
+    Honcho is installed for managing Procfile-based applications.
+
+## Getting Started
+To set up a local instance, follow these steps:
+
+## Front-end Installation
+
+1. Clone the repository:
+
+   git clone git@github.com:maneandmoon/projectify.git
+
+3. Change to the root directory:
+
+   cd projectify
+
+4. Install npm packages:
+
+   npm install
+
+5. Move to the front-end directory:
+
+   cd client
+
+6. Install npm packages in the front-end directory:
+
+   npm install
+
+## Back-end Installation
+
+Make sure you are in the root directory of the project.
+
+1. Install pipenv and the necessary dependencies:
+
+   pipenv install
+
+3. Activate the virtual environment:
+
+   pipenv shell
+
+## Database Setup
+
+1. Navigate to the data directory:
+
+   cd server/Database-Imports
+
+3. Create a database file from the SQL file:
+
+   sqlite3 app.db < backup.sql
+
+4. Alternatively, you can create a migration environment by navigating to cd server and following these prompts to create two new directories--
+   instance and migrations, where app.db will be added to the instance directory.
+
+
+           flask db init
+
+           flask db migrate -m "Initial migration."
+
+           flask db upgrade
+
+           python seed.py
+
+    
+
+## Running the Application
+Ensure you are in the root directory of the project.
+
+Start the application using Honcho:
+
+    honcho start -f Procfile.dev
+
+## API Usage
+To interact with the API, send requests to the endpoints defined in your backend. For example:
+
+    curl -X GET http://localhost:3000
+
+Alternatively, use a tool like Postman to set the URL to your local server's API endpoint and make your desired requests.
+
+## Additional Notes
+Verify that your SQLite database file is correctly set up before starting the back-end server.
 
 ## User Stories
 
-1. Users can create a basic account (global user) to access the platform
-2. Users complete their profile to be able to view the homepage including adding their projects and selecting interests
-3. View a collection of profiles by default on the homepage with the menu options to view projects and interests
-4. Users can click to view more details about other users to see their full profile
-5. Users can click to view more details about projects to see project details and links
-6. Users can click on interests to view other users with the same interests
-7. Users can comment on projects and upvote
-8. Users can edit their own profile (including projects and interests)
-9. View About page for platform info
-10. Users can log out or delete their account?
+1.    Users can create a basic account (global user) to access the platform
+2.    Users complete their profile including adding their projects and selecting interests and then are able to view the Home page
+3.    Navbar has Home (Projects), Profiles, Interests buttons
+4.    Home displays cards of all the projects with details and links
+1.    [If needed to satisfy model relationship requirements, users can add comments to projects]
+5.    Profiles displays cards of all of the user profiles
+1.    Users can click on profiles to view details including associated projects and interests
+6.    Interests displays list of interests with associated users
+7.    Users can edit their own profile
+
+## Stretch Goals
+
+1.    Add authorization and authentication for users
+2.    Add project upvotes
+3.    Display most upvoted projects
 
 ## React Tree Diagram
-![image](https://github.com/user-attachments/assets/148adfa6-f02b-44a2-be16-d22acfc7a903)
+![ReactTreeUpdatedP4](https://github.com/user-attachments/assets/19a679c0-58fb-4edd-883d-b9b88c29602c)
+
 
 ## Schema
-![image](https://github.com/user-attachments/assets/2e30a6d9-8ec6-4165-bf90-7d540a09e30c)
+![SchemaUpdatedP4](https://github.com/user-attachments/assets/34dd71d7-b723-46d0-a291-6898a4dfb584)
+
+
 
 ## API Routes
-![image](https://github.com/user-attachments/assets/922e2065-b389-41c3-a06d-5f8e40b2fa13)
+
+**User Routes**
+
+    GET /users: Retrieve a list of all users.
+    
+    POST /users: Create a new user.
+    
+    GET /users/<id>: Retrieve a specific user by ID.
+    
+    PATCH /users/<id>: Partially update a specific user by ID.
+    
+    DELETE /users/<id>: Delete a specific user by ID.
+
+**Project Routes**
+    
+    GET /projects: Retrieve a list of all projects.
+
+    POST /projects: Create a new project.
+    
+    GET /projects/<id>: Retrieve a specific project by ID.
+    
+    PATCH /projects/<id>: Partially update a specific project by ID.
+    
+    DELETE /projects/<id>: Delete a specific project by ID.
+
+**Interest Routes**
+    
+    GET /interests: Retrieve a list of all interests.
+    
+    POST /interests: Create a new interest.
+    
+    GET /interests/<id>: Retrieve a specific interest by ID.
+    
+    PATCH /interests/<id>: Partially update a specific interest by ID.
+    
+    DELETE /interests/<id>: Delete a specific interest by ID.
 
 
 
