@@ -26,7 +26,7 @@ function NavBar({ user, setUser }) {
           
           <li className="nav-item"><NavLink to="/Login" className="nav-link" activeClassName="active" onClick={handleLogoutClick}>Logout</NavLink></li>
           
-          <li className="nav-item"><NavLink to="/signup" className="nav-link" activeClassName="active">Sign Up</NavLink></li>
+          {/* <li className="nav-item"><NavLink to="/signup" className="nav-link" activeClassName="active">Sign Up</NavLink></li> */}
       
         </ul>
       </nav>

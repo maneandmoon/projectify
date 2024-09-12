@@ -10,31 +10,17 @@ function NewProjectForm() {
         title: yup.string().required("Title is required"),
         description: yup.string().max(25, "must be less than 25 characters"),
         link: yup.string().required("Invalid URL"),
-        // link: yup.string().url("Invalid URL"),
-        // link: yup.string()
-        // .test('is-valid-url', 'Invalid URL', value => {
-        //   if (!value) return true; // Allow empty values if not required
-        //   try {
-        //     new URL(value); // Validate URL
-        //     return true;
-        //   } catch (e) {
-        //     return false;
-        //   }
-        // }),
-        comments: yup.string().max(100, "must be less than 100 characters"),
         interests: yup.string().required("At least one interest is required")
-        // interests: yup.array().of(yup.string()).required("At least one interest is required")
+        // interests: yup.array().of(yup.string())
     })
 
-//formik hook
     const formik = useFormik({
         //need to set initial values
         initialValues:{
             title: "",
             description: "",
-            // link: "",
-            comments: "",
-            interests: ""   //interests field as array //add and update interests?
+            link: "",
+            interests: ""   
         },
 
         //set schema
@@ -44,12 +30,12 @@ function NewProjectForm() {
 		//if your page is refreshing make sure you added onSubmit handler to JSX
 
         onSubmit: (values) => {
-            console.log(formik.errors)
-            // this is a POST req
+            // console.log(formik.errors)
+
             fetch("http://127.0.0.1:5555/projects", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(values),
+                body: JSON.stringify({...values, user_id: 1})
             })
             .then(res => {
                 if(res.ok){
@@ -59,9 +45,16 @@ function NewProjectForm() {
                 }
             })
             .then(data => {
-                console.log(`/projects/${data.id}`)
-
-                navigate(`/projects/${data.id}`)
+                if (data && data.id) {
+                    navigate(`/projects/${data.id}`);
+                } else {
+                    throw new Error("Project ID not returned from server");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                // Handle error (e.g., show an error message to the user)
+                alert(`Error: ${err.message}`);
             })
         }
     });
@@ -108,15 +101,6 @@ function NewProjectForm() {
 				/>
 				{formik.errors.link && formik.touched.link ? (<h3 style={{ color: "red" }}>{formik.errors.link}</h3>) : "" }
 
-                <label>Comments</label>
-				<input
-					type="text"
-					name="comments"
-					onChange={formik.handleChange}
-					value={formik.values.comments}
-				/>
-				{formik.errors.comments && formik.touched.comments ? (<h3 style={{ color: "red" }}>{formik.errors.comments}</h3>) : "" }
-
                 <label>Interests</label>
 				<input
 					type="text"
@@ -131,8 +115,6 @@ function NewProjectForm() {
             </form>
         </section>
     );
-
-
 }
 
 export default NewProjectForm; 

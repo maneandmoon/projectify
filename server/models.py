@@ -46,11 +46,25 @@ class Project(db.Model, SerializerMixin):
     link = db.Column(db.String(200))
     is_featured = db.Column(db.Boolean, default=False)
     # comments = db.relationship('Comment', back_populates='project')
-    interests = db.relationship('ProjectInterest', back_populates='project', cascade='all, delete-orphan')
+    interests = db.relationship('ProjectInterest', back_populates='project')
+
+    # cascade='all, delete-orphan'
     interest_names = association_proxy('interests', 'interest_name')
     user = db.relationship('User', back_populates='projects')
 
     serialize_rules = ('-user.projects', '-interests.project', '-user.interests')
+
+    # def to_dict(self):
+    #     """Convert the Project object to a dictionary including id."""
+    #     return {
+    #         'id': self.id,
+    #         'title': self.title,
+    #         'description': self.description,
+    #         'link': self.link,
+    #         # 'is_featured': self.is_featured,
+    #         'interests': self.interests
+    #         # [interest.to_dict() for interest in self.interests]  # Assuming ProjectInterest has a to_dict method
+    #     }
 
 class Interest(db.Model, SerializerMixin):
     __tablename__ = 'interests'
@@ -85,6 +99,15 @@ class ProjectInterest(db.Model, SerializerMixin):
     interest_name = association_proxy('interest', 'name')
 
     serialize_rules = ('-project.interests', '-interest.project_interests', '-project.user')
+
+    # def to_dict(self):
+    #     return {
+    #         'id': self.id,
+    #         'project_id': self.project_id,
+    #         'interest_id': self.interest_id,
+    #         'interest_name': self.interest_name
+    #     }
+# Ensure that the ProjectInterest model is defined correctly and that it has an id field, which is expected to be returned after a successful insert
 
 # class Comment(db.Model, SerializerMixin):
 #     __tablename__ = 'comments'

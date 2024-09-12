@@ -230,7 +230,7 @@ def get_featured_projects():
     projs_list = [proj.to_dict() for proj in projs]
     return make_response(projs_list, 200)
 
-@app.route('/projects', methods = ['GET', 'POST'])
+@app.route('/projects', methods = ['GET'])
 def projects():
 
     if request.method == 'GET':
@@ -244,25 +244,55 @@ def projects():
 
         return make_response(project_dict, 200)
 
-    elif request.method == 'POST':
+    # elif request.method == 'POST':
 
-        data = request.get_json()
+    #     data = request.get_json()
 
-        try:
-            projects = Project(
-                user_id = data.get('user_id'),
-                title = data.get("title"),
-                description = data.get("description"),
-                link = data.get("link")
-                )
+        # try:
+        #     projects = Project(
+        #         user_id = data.get('user_id'),
+        #         title = data.get("title"),
+        #         description = data.get("description"),
+        #         link = data.get("link"),
+        #         interests = data.get("interests")
+        #         )
 
-            db.session.add(projects)
-            db.session.commit()
+        #     db.session.add(projects)
+        #     db.session.commit()
 
-            return make_response(projects.to_dict(), 201)
+        #     return make_response(projects.to_dict(), 201)
 
-        except:
-            return make_response({"message":"something went wrong - unprocessable entity"}, 422)
+        # except:
+        #     return make_response({"message":"something went wrong - unprocessable entity"}, 422)
+
+@app.route('/projects', methods=['POST'])
+def create_project():
+    data = request.get_json()
+
+    title = data.get('title')
+    description = data.get('description')
+    link = data.get('link')
+    interests = [] 
+    user_id = data.get('user_id')
+    # is_featured = data.get('is_featured')
+
+    # Check if essential fields are present
+    if not title or not description or not link or not user_id:
+        return make_response({"error": "Missing title, description, or link"}, 400)
+
+    try:
+        new_project = Project(title=title, description=description, link=link, interests=interests, user_id=user_id)
+        # import ipdb; ipdb.set_trace()
+
+        db.session.add(new_project)
+        db.session.commit()
+
+        # Assuming `new_project.to_dict()` returns a dictionary including the 'id' field
+        response = new_project.to_dict()
+        return make_response(response, 201)
+    except Exception as e:
+        app.logger.error(f"Error creating project: {str(e)}")
+        return make_response({"error": "Something went wrong"}, 422)        
 
 
 @app.route('/projects/<int:id>', methods = ['GET', 'PATCH'])
@@ -346,18 +376,22 @@ def add_to_interest_list():
 
     try:
         # Assuming `ProjectInterest` is the table linking projects and interests
-        new_interest = ProjectInterest(project_id=project_id, interest_id=user_id)  # Adjust as needed
+        new_interest = ProjectInterest(project_id=projects.id, interest_id=interests.id)  
         db.session.add(new_interest)
         db.session.commit()
 
-        return make_response(new_interest.to_dict(), 201)
+        # Ensure the object has an 'id' field
+        response_data = new_interest.to_dict()
+        if 'id' not in response_data:
+            app.logger.error("New interest object does not have an 'id' field")
+            return make_response({"error": "Something went wrong"}, 422)
+
+        return make_response(response_data, 201)
     except Exception as e:
         app.logger.error(f"Error adding to interest list: {str(e)}")
         return make_response({"error": "Something went wrong"}, 422)
 
     
-
-
     # elif request.method == 'POST':
 
     #     data = request.get_json()

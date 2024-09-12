@@ -79,7 +79,10 @@ const ProjectPage = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ projectId: project.id }),
+      body: JSON.stringify({ 
+        projectId: projects.id, 
+        interestsId: interests.id
+      }),
     })
     .then(res => {
       if (res.ok) {
@@ -111,7 +114,7 @@ return (
           <h2>{project.title}</h2>
           <p>{project.description}</p>
           <button onClick={() => deleteProject(project.id)}>Delete</button>
-          <button onClick={addToInterestList}>Add to Interest List</button>
+          {/* <button onClick={addToInterestList}>Add to Interest List</button> */}
           
         </div>
       ) : (
