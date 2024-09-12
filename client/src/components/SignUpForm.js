@@ -1,90 +1,101 @@
-//SignUpForm.js
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { Button, Error, Input, FormField, Label } from "../styles";
 
-function SignUpForm({ onLogin }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+const SignUpSchema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required").min(6, "Password must be at least 6 characters"),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), null], "Passwords must match").required("Password confirmation is required"),
+});
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setErrors([]);
-    setIsLoading(true);
-    fetch("/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-        password_confirmation: passwordConfirmation
-      }),
-    }).then((r) => {
-      setIsLoading(false);
-      if (r.ok) {
-        r.json().then((user) => onLogin(user));
-      } else {
-        r.json().then((err) => {
-          setErrors(err.errors);
+function SignUpForm({ onLogin }) {
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+      passwordConfirmation: "",
+    },
+    validationSchema: SignUpSchema,
+    onSubmit: (values, { setSubmitting, setErrors }) => {
+      setSubmitting(true);
+      fetch("/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: values.username,
+          password: values.password,
+          password_confirmation: values.passwordConfirmation,
+        }),
+      })
+        .then((r) => {
+          setSubmitting(false);
+          if (r.ok) {
+            r.json().then((user) => onLogin(user));
+          } else {
+            r.json().then((err) => {
+              setErrors({ api: err.errors });
+            });
+          }
         });
-      }
-    });
-  }
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={formik.handleSubmit}>
       <FormField>
         <Label htmlFor="username">Username</Label>
         <Input
           type="text"
-          id="username"
+          name="username"
           autoComplete="off"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={formik.handleChange}
+          value={formik.values.username}
         />
+        {formik.errors.username && formik.touched.username ? (
+          <Error>{formik.errors.username}</Error>
+        ) : null}
       </FormField>
+
       <FormField>
         <Label htmlFor="password">Password</Label>
         <Input
           type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
           autoComplete="current-password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
         />
+        {formik.errors.password && formik.touched.password ? (
+          <Error>{formik.errors.password}</Error>
+        ) : null}
       </FormField>
+
       <FormField>
-        <Label htmlFor="password">Password Confirmation</Label>
+        <Label htmlFor="passwordConfirmation">Password Confirmation</Label>
         <Input
           type="password"
-          id="password_confirmation"
-          value={passwordConfirmation}
-          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          name="passwordConfirmation"
           autoComplete="current-password"
+          onChange={formik.handleChange}
+          value={formik.values.passwordConfirmation}
         />
+        {formik.errors.passwordConfirmation && formik.touched.passwordConfirmation ? (
+          <Error>{formik.errors.passwordConfirmation}</Error>
+        ) : null}
       </FormField>
-      {/* <FormField>
-        <Label htmlFor="imageUrl">Profile Image</Label>
-        <Input
-          type="text"
-          id="imageUrl"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-      </FormField> */}
+
       <FormField>
-        <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
+        <Button type="submit" disabled={formik.isSubmitting}>
+          {formik.isSubmitting ? "Loading..." : "Sign Up"}
+        </Button>
       </FormField>
+
       <FormField>
-        {Array.isArray(errors) && errors.map((err) => (
-          <Error key={err}>{err}</Error>
-        // {errors.map((err) => (
-        //   <Error key={err}>{err}</Error>
+        {formik.errors.api && formik.errors.api.map((err, index) => (
+          <Error key={index}>{err}</Error>
         ))}
       </FormField>
     </form>
