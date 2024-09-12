@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, User, Project, Comment, Interest, UserInterest, ProjectInterest
+from models import db, User, Project, Interest, UserInterest, ProjectInterest
 
 if __name__ == '__main__':
     fake = Faker()
@@ -18,7 +18,7 @@ if __name__ == '__main__':
         # Clear existing data
         db.session.query(UserInterest).delete()
         db.session.query(ProjectInterest).delete()
-        db.session.query(Comment).delete()
+        # db.session.query(Comment).delete()
         db.session.query(Project).delete()
         db.session.query(User).delete()
         db.session.query(Interest).delete()
@@ -61,15 +61,15 @@ if __name__ == '__main__':
             db.session.add(project)
         db.session.commit()
 
-        # Create comments
-        for _ in range(80):
-            comment = Comment(
-                project_id=rc(projects).id,
-                user_id=rc(users).id,
-                content=fake.text(max_nb_chars=200)
-            )
-            db.session.add(comment)
-        db.session.commit()
+        # # Create comments
+        # for _ in range(80):
+        #     comment = Comment(
+        #         project_id=rc(projects).id,
+        #         user_id=rc(users).id,
+        #         content=fake.text(max_nb_chars=200)
+        #     )
+        #     db.session.add(comment)
+        # db.session.commit()
 
         # Create user interests
         for user in users:

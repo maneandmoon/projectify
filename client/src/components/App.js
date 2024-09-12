@@ -24,14 +24,22 @@ function App() {
   // }, []);
 
   // if (!user) return <Login onLogin={setUser} />;
+  const [projects, setProjects] = useState([]);
 
+  // Define the addProject function
+  const addProject = (newProject) => {
+    // Update the projects state with the new project
+    setProjects((prevProjects) => [...prevProjects, newProject]);
+  };
+  
   return (
     <Router>
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/projects" element={<ProjectPage />} />
-        <Route path="/new-project-form" element={<NewProjectForm />} />
+        <Route path="/projects/:id" element={<ProjectPage/>} />
+        <Route path="/new-project-form" element={<NewProjectForm addProject={addProject} />} />
         <Route path="/interests" element={<InterestList />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUpPage />} /> 

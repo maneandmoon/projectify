@@ -19,7 +19,7 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
     # image_url = db.Column(db.String)
 
-    serialize_rules = ('-projects.user', '-interests.user', '-projects.comments', '-projects.interests')
+    serialize_rules = ('-projects.user', '-interests.user', '-projects.interests')
     
     @hybrid_property
     def password_hash(self):
@@ -45,12 +45,12 @@ class Project(db.Model, SerializerMixin):
     description = db.Column(db.Text, nullable=False)
     link = db.Column(db.String(200))
     is_featured = db.Column(db.Boolean, default=False)
-    comments = db.relationship('Comment', back_populates='project')
-    interests = db.relationship('ProjectInterest', back_populates='project')
+    # comments = db.relationship('Comment', back_populates='project')
+    interests = db.relationship('ProjectInterest', back_populates='project', cascade='all, delete-orphan')
     interest_names = association_proxy('interests', 'interest_name')
     user = db.relationship('User', back_populates='projects')
 
-    serialize_rules = ('-user.projects', '-comments.project', '-interests.project', '-user.interests')
+    serialize_rules = ('-user.projects', '-interests.project', '-user.interests')
 
 class Interest(db.Model, SerializerMixin):
     __tablename__ = 'interests'
@@ -58,7 +58,7 @@ class Interest(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     user_interests = db.relationship('UserInterest', back_populates='interest')
-    project_interests = db.relationship('ProjectInterest', back_populates='interest')
+    project_interests = db.relationship('ProjectInterest', back_populates='interest', cascade='all, delete-orphan')
 
     serialize_rules = ('-user_interests.interest', '-project_interests.interest')
 
@@ -86,14 +86,14 @@ class ProjectInterest(db.Model, SerializerMixin):
 
     serialize_rules = ('-project.interests', '-interest.project_interests', '-project.user')
 
-class Comment(db.Model, SerializerMixin):
-    __tablename__ = 'comments'
+# class Comment(db.Model, SerializerMixin):
+#     __tablename__ = 'comments'
 
-    id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    project = db.relationship('Project', back_populates='comments')
-    user = db.relationship('User')
+#     id = db.Column(db.Integer, primary_key=True)
+#     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     content = db.Column(db.Text, nullable=False)
+#     project = db.relationship('Project', back_populates='comments')
+#     user = db.relationship('User')
 
-    serialize_rules = ('-project.comments', '-user.projects', '-user.interests')
+#     serialize_rules = ('-project.comments', '-user.projects', '-user.interests')
