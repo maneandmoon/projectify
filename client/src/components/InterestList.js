@@ -22,7 +22,7 @@ function InterestList() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5555/interests/${id}`, {
+    fetch(`http://localhost:5555/projects/${id}`, {
       method: 'DELETE',
     })
       .then((res) => {
@@ -47,7 +47,7 @@ return (
               project={project}
               deleteProject={handleDelete}
               // showAddButton={false} // Remove "Add to Interest List" button
-              showDelete={false}
+              showDelete={true}
               showAddToInterestList={false} // Hide Add to Interest List button
             />
           </li>

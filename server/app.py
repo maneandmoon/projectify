@@ -42,7 +42,7 @@ from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
 # Add your model imports (SK: added models here to be imported)
-from models import User, Project, Interest, UserInterest, ProjectInterest, Comment
+from models import User, Project, Interest, UserInterest, ProjectInterest
 #from sqlalchemy.exc import IntegrityError
 
 
@@ -102,7 +102,7 @@ class Login(Resource):
     def post(self):
         data = request.get_json()
         username = data.get('username')
-        password = data.get('password')
+        password = data.get('_password_hash')
 
         user = User.query.filter_by(username=username).first()
 
@@ -265,7 +265,7 @@ def projects():
             return make_response({"message":"something went wrong - unprocessable entity"}, 422)
 
 
-@app.route('/projects/<int:id>', methods = ['GET', 'PATCH', 'DELETE'])
+@app.route('/projects/<int:id>', methods = ['GET', 'PATCH'])
 def project_by_id(id):
 
     project = Project.query.filter(Project.id == id).first()
@@ -291,21 +291,36 @@ def project_by_id(id):
         except:
             return make_response({"message":"patch went wrong"}, 422)
 
-    elif request.method == 'DELETE':
+    # elif request.method == 'DELETE':
 
+    #     db.session.delete(project)
+    #     db.session.commit()
+
+    #     response_body = {
+    #         "delete_successful": True,
+    #         "message": "Project deleted."
+    #     }
+
+    #     return make_response(response_body, 204)
+
+@app.route('/projects/<int:id>', methods=['DELETE'])
+def delete_project(id):
+    project = Project.query.get(id)
+
+    if not project:
+        return make_response({"error": f"Project {id} not found"}, 404)
+
+    try:
         db.session.delete(project)
         db.session.commit()
-
-        response_body = {
-            "delete_successful": True,
-            "message": "Project deleted."
-        }
-
-        return make_response(response_body, 204)
+        return make_response({"message": "Project deleted successfully"}, 204)
+    except Exception as e:
+        app.logger.error(f"Error deleting project: {str(e)}")
+        return make_response({"error": "Failed to delete project"}, 500)
 
 
 ## INTEREST Routes
-@app.route('/interests', methods = ['GET', 'POST'])
+@app.route('/interests', methods = ['GET'])
 def interests():
 
     if request.method == 'GET':
@@ -319,20 +334,44 @@ def interests():
 
         return make_response(interest_dict, 200)
 
-    elif request.method == 'POST':
+@app.route('/interests', methods=['POST'])
+def add_to_interest_list():
+    data = request.get_json()
 
-        data = request.get_json()
+    project_id = data.get('project_id')
+    user_id = data.get('user_id')
 
-        try:
-            interests = Interest(name = data.get("name"))
+    if not project_id or not user_id:
+        return make_response({"error": "Missing project_id or user_id"}, 400)
 
-            db.session.add(interests)
-            db.session.commit()
+    try:
+        # Assuming `ProjectInterest` is the table linking projects and interests
+        new_interest = ProjectInterest(project_id=project_id, interest_id=user_id)  # Adjust as needed
+        db.session.add(new_interest)
+        db.session.commit()
 
-            return make_response(interests.to_dict(), 201)
+        return make_response(new_interest.to_dict(), 201)
+    except Exception as e:
+        app.logger.error(f"Error adding to interest list: {str(e)}")
+        return make_response({"error": "Something went wrong"}, 422)
 
-        except:
-            return make_response({"message":"something went wrong - unprocessable entity"}, 422)
+    
+
+
+    # elif request.method == 'POST':
+
+    #     data = request.get_json()
+
+    #     try:
+    #         interests = Interest(name = data.get("name"))
+
+    #         db.session.add(interests)
+    #         db.session.commit()
+
+    #         return make_response(interests.to_dict(), 201)
+
+    #     except:
+    #         return make_response({"message":"something went wrong - unprocessable entity"}, 422)
 
 
 @app.route('/interests/<int:id>', methods = ['GET', 'PATCH', 'DELETE'])
@@ -375,78 +414,79 @@ def interest_by_id(id):
 
 
 ## COMMENT Routes
-@app.route('/comments', methods = ['GET', 'POST'])
-def comments():
+# @app.route('/comments', methods = ['GET', 'POST'])
+# def comments():
 
-    if request.method == 'GET':
+#     if request.method == 'GET':
 
-        comments = Comment.query.all()
+#         comments = Comment.query.all()
 
-        if (not comments):
-            return make_response ({"message":"No Comments found"}, 404)
+#         if (not comments):
+#             return make_response ({"message":"No Comments found"}, 404)
 
-        comment_dict = [comment.to_dict() for comment in comments]
+#         comment_dict = [comment.to_dict() for comment in comments]
 
-        return make_response(comment_dict, 200)
+#         return make_response(comment_dict, 200)
 
-    elif request.method == 'POST':
+#     elif request.method == 'POST':
 
-        data = request.get_json()
+#         data = request.get_json()
 
-        try:
-            comments = Comment(content = data.get("content"),
-                                project_id = data.get('project_id'),
-                                user_id = data.get('user_id')
-                                )
+#         try:
+#             comments = Comment(content = data.get("content"),
+#                                 project_id = data.get('project_id'),
+#                                 user_id = data.get('user_id')
+#                                 )
 
-            db.session.add(comments)
-            db.session.commit()
+#             db.session.add(comments)
+#             db.session.commit()
 
-            return make_response(comments.to_dict(), 201)
+#             return make_response(comments.to_dict(), 201)
 
-        except:
-            return make_response({"message":"something went wrong - unprocessable entity"}, 422)
+#         except:
+#             return make_response({"message":"something went wrong - unprocessable entity"}, 422)
 
 
-@app.route('/comments/<int:id>', methods = ['GET', 'DELETE', 'PATCH'])
-def comment_by_id(id):
+# @app.route('/comments/<int:id>', methods = ['GET', 'DELETE', 'PATCH'])
+# def comment_by_id(id):
 
-    comment = Comment.query.filter(Comment.id == id).first()
+#     comment = Comment.query.filter(Comment.id == id).first()
 
-    if (not comment):
-            return make_response({"error": f"Comment {id} not found"}, 404)
+#     if (not comment):
+#             return make_response({"error": f"Comment {id} not found"}, 404)
 
-    if request.method == 'GET':
+#     if request.method == 'GET':
 
-        return make_response(comment.to_dict(), 200)
+#         return make_response(comment.to_dict(), 200)
 
-    elif request.method == 'PATCH':
+#     elif request.method == 'PATCH':
 
-        try:
-            data = request.get_json()
-            for cur_field in data:
-                setattr(comment, cur_field, data.get(cur_field))
-            db.session.add(comment)
-            db.session.commit()
+#         try:
+#             data = request.get_json()
+#             for cur_field in data:
+#                 setattr(comment, cur_field, data.get(cur_field))
+#             db.session.add(comment)
+#             db.session.commit()
 
-            return make_response(comment.to_dict(), 200)
+#             return make_response(comment.to_dict(), 200)
 
-        except:
-            return make_response({"message":"patch went wrong"}, 422)
+#         except:
+#             return make_response({"message":"patch went wrong"}, 422)
 
-    elif request.method == 'DELETE':
+#     elif request.method == 'DELETE':
 
-        db.session.delete(comment)
-        db.session.commit()
+#         db.session.delete(comment)
+#         db.session.commit()
 
-        response_body = {
-            "delete_successful": True,
-            "message": "Comment deleted."
-        }
+#         response_body = {
+#             "delete_successful": True,
+#             "message": "Comment deleted."
+#         }
 
-        return make_response(response_body, 204)
+#         return make_response(response_body, 204)
 
 
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
