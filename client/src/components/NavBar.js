@@ -20,16 +20,8 @@ function NavBar({ user, setUser }) {
           <li className="nav-item"><NavLink to="/new-project-form" className="nav-link" activeClassName="active">New Project</NavLink></li>
           {/* <li className="nav-item"><NavLink to="/search" className="nav-link" activeClassName="active">Search</NavLink></li> */}
           <li className="nav-item"><NavLink to="/interest-list" className="nav-link" activeClassName="active">Interest List</NavLink></li>
-          <li className="nav-item"><NavLink to="/login" className="nav-link" activeClassName="active">Login</NavLink></li>
-          
-        {/* will update to incldue this */}
-          
-          <NavLink to={"/Login"} className="button" onClick={handleLogoutClick}>
-            Logout
-        </NavLink>
-
-
-          
+          <li className="nav-item"><NavLink to="/login" className="nav-link" activeClassName="active"onClick={handleLogoutClick}>Login</NavLink></li>
+          <li className="nav-item"><NavLink to="/login" className="nav-link" activeClassName="active" onClick={handleLogoutClick}>Logout</NavLink></li>          
         </ul>
       </nav>
     </header>
