@@ -28,7 +28,7 @@ function HomePage() {
   const onAddToInterestList = (project) => {
     setInterestList((prevInterestList) => [...prevInterestList, project]);
 
-    //add project to interst list
+    //add project to interest list
     // Navigate to interest list page or perform additional actions if needed
   };
 

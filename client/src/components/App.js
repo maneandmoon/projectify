@@ -8,24 +8,21 @@ import InterestList from "./InterestList";
 import Login from "./Login";
 import SignUpForm from "./SignUpForm"; 
 import UserPage from "./UserPage"; 
-// import UserProfile from "./UserProfile";
-// import Search from "./Search";
 
 function App() {
-  // return <h1>Project Client</h1>;
+
   const [user, setUser] = useState(null);
   const [projects, setProjects] = useState([]);
   
-
-  // // useEffect(() => {
-  // //   // auto-login
-  // //   fetch("http://localhost:5555/check_session")
-  // //   .then((r) => {
-  // //     if (r.ok) {
-  // //       r.json().then((user) => setUser(user));
-  // //     }
-  // //   });
-  // // }, []);
+  // useEffect(() => {
+  //   // auto-login
+  //   fetch("http://localhost:5555/check_session")
+  //   .then((r) => {
+  //     if (r.ok) {
+  //       r.json().then((user) => setUser(user));
+  //     }
+  //   });
+  // }, []);
 
   if (!user) return <Login onLogin={setUser} />;
   return (

@@ -18,7 +18,6 @@ function NavBar({ user, setUser }) {
           <li className="nav-item"><NavLink to="/users" className="nav-link" activeClassName="active">Users</NavLink></li>
           <li className="nav-item"><NavLink to="/projects" className="nav-link" activeClassName="active">Projects</NavLink></li>
           <li className="nav-item"><NavLink to="/new-project-form" className="nav-link" activeClassName="active">New Project</NavLink></li>
-
           <li className="nav-item"><NavLink to="/interests" className="nav-link" activeClassName="active">Interest List</NavLink></li>
           {user ? (
             <>

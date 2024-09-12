@@ -21,9 +21,7 @@ function ProjectPageDetail() {
 		.then(data => setProjects(data))
 	}, [])
 
-	// 4b. destructure the values and display them on page
-	// const { id, title, genre, image, description, director, length, composer } = production;
-    
+	// 4b. destructure the values and display them on page    
     const { id, user_id, title, description, link, is_featured, interests, interest_names, user } = project;
 	
 	return (

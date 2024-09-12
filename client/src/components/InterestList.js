@@ -46,7 +46,6 @@ return (
             <ProjectCard
               project={project}
               deleteProject={handleDelete}
-              // showAddButton={false} // Remove "Add to Interest List" button
               showDelete={true}
               showAddToInterestList={false} // Hide Add to Interest List button
             />

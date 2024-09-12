@@ -26,7 +26,7 @@ function NewProjectForm() {
         //set schema
         validationSchema: schema,
 	    
-        //3. create onSubmit callback
+        //create onSubmit callback
 		//if your page is refreshing make sure you added onSubmit handler to JSX
 
         onSubmit: (values) => {

@@ -52,7 +52,7 @@ const ProjectPage = () => {
     }
   }, [id]);
 
-  // Handle deleting a project
+  // Handle deleting an ind project
   const deleteProject = (id) => {
     fetch(`http://127.0.0.1:5555/projects/${id}`, {
       method: 'DELETE',

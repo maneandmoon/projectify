@@ -1,32 +1,32 @@
 /* NavBar.css */
 .navbar {
-    background-color: #333; /* Background color of the navbar */
-    padding: 10px; /* Padding around the navbar */
+    background-color: #333; 
+    padding: 10px; 
   }
   
   .nav-links {
-    list-style: none; /* Remove default list styles */
-    display: flex; /* Align items horizontally */
-    justify-content: center; /* Center items horizontally */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    list-style: none; 
+    display: flex; 
+    justify-content: center; 
+    margin: 0; 
+    padding: 0; 
   }
   
   .nav-item {
-    margin: 0 15px; /* Space out the links */
+    margin: 0 15px; 
   }
   
   .nav-item a {
-    color: #fff; /* Link color */
-    text-decoration: none; /* Remove underline from links */
-    font-size: 16px; /* Font size for links */
+    color: #fff; 
+    text-decoration: none; 
+    font-size: 16px; 
   }
   
   .nav-item a:hover {
-    text-decoration: underline; /* Add underline on hover */
+    text-decoration: underline; 
   }
   
   .nav-item a.active {
-    font-weight: bold; /* Bold text for the active link */
+    font-weight: bold; 
   }
   
